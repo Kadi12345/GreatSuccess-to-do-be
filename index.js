@@ -15,6 +15,5 @@ app.get('/', (req, res) => {
 
 app.use('/api', router)
 
-app.listen(port, () => {
-  console.log(`Server is running on https://git.heroku.com/greatsuccess-todo.git`)
-})
+app.listen(process.env.PORT || port, () => {
+  console.log("Server is running")
