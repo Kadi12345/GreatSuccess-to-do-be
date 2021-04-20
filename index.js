@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 app.use('/api', router)
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
+  console.log(`Server is running on https://git.heroku.com/greatsuccess-todo.git`)
 })
