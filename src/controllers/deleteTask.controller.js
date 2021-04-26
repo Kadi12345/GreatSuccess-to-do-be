@@ -4,7 +4,7 @@ const Done = db.Done
 
 module.exports = async function (req, res) {
   try {
-    // TODO - Some nicer soultion should be put here (in long run it would make sense to keep all tasks in one table and keep the heading as a task parameter)
+    // TODO - Some nicer solution should be put here (in long run it would make sense to keep all tasks in one table and keep the heading as a task parameter)
     const done_task = await Done.findOne({_id: req.params.id}).lean().exec()
     await Done.deleteOne(done_task)
 
