@@ -14,9 +14,6 @@ module.exports = async function (req, res) {
     if(todo_task !== null) {
         await Todo.deleteOne(todo_task)
     }
-
-    console.log("DONE" + done_task)
-    console.log("TODO" + todo_task)
  
     res.status(200).json({ message: 'Success' })
   } catch (error) {
