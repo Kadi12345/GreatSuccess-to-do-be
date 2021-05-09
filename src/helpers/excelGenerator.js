@@ -41,42 +41,37 @@ bottom: {
   let row = 1
   ws.column(2).setWidth(30);
 
-  ws.cell(1, 1).string('')
+ ws.cell(1, 1).string('')
   ws.cell(1, 2).string('Todo').style(style).style(headerStyle);
   ws.cell(1, 3).string('Status').style(style).style(headerStyle);
   ws.cell(1, 4).string('Priority').style(style).style(headerStyle);
-
-  /*let q = function Queue()
-  {
-      var str = "";
-      for(var i = 0; i < this.items.length; i++)
-          str += this.items[i] +" ";
-      return str;
-       ws.cell(1).formula(q).style(style);
-  },*/
-  //DODO: järjekord välja mõelda
  
+  
+  
   for await (const item of result.todoTasks) {
     row++
-    ws.cell(row, 1).number(2).style(style).style(headerStyle);
+    ws.cell(row, 1).number(row-1).style(style).style(headerStyle);
     ws.cell(row, 2).string(item.title).style(style);
     ws.cell(row, 3).string('Todo').style(style);
-    ws.cell(row, 4).string(item.priority.toLowerCase()).style(style);
+    String.prototype.capitalize = function() {
+      return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+  }
+    ws.cell(row, 4).string(item.priority.capitalize()).style(style);
   }
 
   for await (const item of result.doneTasks) {
     row++
-    ws.cell(row, 1).number(3).style(style).style(headerStyle);
+    ws.cell(row, 1).number(row-1).style(style).style(headerStyle);
     ws.cell(row, 2).string(item.title).style(style);
     ws.cell(row, 3).string('Done').style(style);
     ws.cell(row, 4).string(item.priority.toLowerCase()).style(style);
   }
-  //DODO: summa õigesti arvutama
+ 
   row++
   if (result.todoTasks.length > 0) {
   row++
     ws.cell(row, 1).string('Todo total:').style(headerStyle);
-    ws.cell(row, 2).formula('SUM(A1:A4)').style( {font: {
+    ws.cell(row, 2).formula('SUMIF(C:C, "Todo", A:A)').style( {font: {
       bold: true,
     },
     alignment: {
@@ -88,7 +83,7 @@ bottom: {
   if (result.doneTasks.length > 0) {
       row++
   ws.cell(row, 1).string('Done total:').style(headerStyle);
-  ws.cell(row, 2).formula('SUMIF(C2:C4, "Done", A1:A4)').style( {font: {
+  ws.cell(row, 2).formula('SUMIF(C:C, "Done", A:A)').style( {font: {
     bold: true,
   },
   alignment: {
@@ -98,9 +93,5 @@ bottom: {
 });
 
 }
-
-
-
-
   wb.write('Excel.xlsx', res);
 }
