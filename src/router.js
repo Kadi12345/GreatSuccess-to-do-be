@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const {  getTasks, createTask, moveTask, deleteTask, downloadFile } = require('./controllers')
+const {  getTasks, getTasksByAuthor, createTask, moveTask, deleteTask, downloadFile } = require('./controllers')
 
 
 router.get('/tasks', getTasks)
+router.get('/tasks/:author', getTasksByAuthor)
 // id is mongo object _id and toTask is todo or done
 router.get('/moveTask/:id/:toTask', moveTask)
 router.post('/createTask', createTask)
