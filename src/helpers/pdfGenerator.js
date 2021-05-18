@@ -7,6 +7,7 @@ module.exports = async function (result, res) {
 
   let startX = 15;
   let startY = 20;
+
  
 
   let today = new Date().toISOString().slice(0, 10);
@@ -30,6 +31,7 @@ module.exports = async function (result, res) {
           textColor: [44, 62, 80],
           },
         });
+        for await (const item of result.todoTasks){
     
   if (result.todoTasks.length > 0) {
     doc.text("Todo", startX, startY);
@@ -53,20 +55,21 @@ columnStyles: {
           if (HookData.column.dataKey === 'date') {
             HookData.cell.text = today
           }
-        }
+        } 
         if (HookData.cell.section === 'body') {
           if (HookData.column.dataKey === 'priority') {
-          function capitalizeFirstLetter(str) {
-            return (str && typeof str === 'string') ? (str.charAt(0).toUpperCase() + str.slice(1)) : "";
-        } 
-            HookData.cell.text = capitalizeFirstLetter('priority') //todo: kuidas siia saada reaalne priority väärtus, sõna "priority" asemele, funktsioon toimib.
+        
+        String.prototype.capitalize = function() {
+          return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+      } 
+            HookData.cell.text = item.priority.capitalize(); 
           }
       }},
       
     didDrawPage (HookData) {
         return HookData.table
       },  
-    }); startY = table.lastAutoTable.finalY + 16}
+    }); startY = table.lastAutoTable.finalY + 16}}
 
   if (result.doneTasks.length > 0) {
     doc.text("Done", startX, startY); 
@@ -107,7 +110,10 @@ columnStyles: {
   head: [['Total number of Todos', 'Total number of Dones']],
   body: [[countTodo + " ex", countDone + " ex"]],
   startY,
+  
 });
+
+
 
   res.setHeader('Content-Disposition', 'filename="' + encodeURIComponent(`TODO.pdf`) + '"')
   res.setHeader('Content-Type', 'application/pdf')
