@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.14",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.4",
+     "excel4node": "^1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
@@ -26,7 +27,6 @@
     "@vue/test-utils": "^1.1.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^26.6.3",
-    "excel4node": "^1.7.2",
     "nodemon": "^2.0.6"
   },
   "bugs": {
