@@ -31,11 +31,11 @@ describe('router', () => {
   test('should use createTask controller when "/createTask" is triggered', () => {
     expect(postSpy).toHaveBeenNthCalledWith(1, '/createTask', createTask);
   });
-  test('should use deleteTask controller when "/deleteTask" is triggered', () => {
-    expect(deleteSpy).toHaveBeenNthCalledWith(1, '/deleteTask', deleteTask);
-  });
   test('should use downloadFile controller when "/downloadFile" is triggered', () => {
     expect(postSpy).toHaveBeenNthCalledWith(2, '/downloadFile', downloadFile);
+  });
+  test('should use deleteTask controller when "/deleteTask" is triggered', () => {
+    expect(deleteSpy).toHaveBeenNthCalledWith(1, '/deleteTask', deleteTask);
   });
   test('should call GET method 3 times', () => {
     expect(getSpy).toHaveBeenCalledTimes(3);
