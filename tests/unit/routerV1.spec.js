@@ -35,7 +35,7 @@ describe('router', () => {
   test('should use downloadFile controller when "/downloadFile" is triggered', () => {
     expect(spy).toHaveBeenNthCalledWith(6, '/downloadFile', downloadFile);
   });
-  test('should call methods 5 times', () => {
+  test('should call methods 6 times', () => {
     expect(spy).toHaveBeenCalledTimes(6);
   });
 });
