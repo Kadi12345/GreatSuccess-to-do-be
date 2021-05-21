@@ -7,11 +7,11 @@ module.exports = async function (req, res) {
       const result = [
         {
           title: 'Todo',
-          tasks: await Todo.findOne({author: req.params.author}).sort({ priorityNumber: 1 }).lean().exec()
+          tasks: await Todo.find({author: req.params.author}).sort({ priorityNumber: 1 }).lean().exec()
         },
         {
           title: 'Done',
-          tasks: await Done.findOne({author: req.params.author}).sort({ priorityNumber: 1 }).lean().exec(),
+          tasks: await Done.find({author: req.params.author}).sort({ priorityNumber: 1 }).lean().exec(),
         },
   
       ]
