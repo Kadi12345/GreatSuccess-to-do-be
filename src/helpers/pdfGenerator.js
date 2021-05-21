@@ -4,11 +4,8 @@ require('jspdf-autotable')
 module.exports = async function (result, res) {
   const doc = new jsPDF('p', 'mm');
  
-
   let startX = 15;
   let startY = 20;
-
- 
 
   let today = new Date().toISOString().slice(0, 10);
   let newdate = "Date Printed : "+ today;
@@ -31,29 +28,26 @@ module.exports = async function (result, res) {
           textColor: [44, 62, 80],
           },
         });
-        for await (const item of result.todoTasks){
-    
+
+        for await (const item of result.todoTasks){  
   if (result.todoTasks.length > 0) {
     doc.text("Todo", startX, startY);
     startY += 5
     const table = doc.autoTable(header, result.todoTasks,  {
 columnStyles: {
         title: {
-            cellWidth: 60,
+            cellWidth: 120,
               },
               priority: {
-                cellWidth: 60,
+                cellWidth: 35,
                     },
-              date: {
-                 cellWidth: 60,
-                    }
             },
       startY,
      
-      willDrawCell (HookData) {
+      didParseCell (HookData) {
         if (HookData.cell.section === 'body') {
           if (HookData.column.dataKey === 'date') {
-            HookData.cell.text = today
+            HookData.cell.text =today 
           }
         } 
         if (HookData.cell.section === 'body') {
@@ -62,7 +56,7 @@ columnStyles: {
         String.prototype.capitalize = function() {
           return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
       } 
-            HookData.cell.text = item.priority.capitalize(); 
+            HookData.cell.text = [ item.priority.capitalize() ] 
           }
       }},
       
@@ -71,35 +65,39 @@ columnStyles: {
       },  
     }); startY = table.lastAutoTable.finalY + 16}}
 
+    for await (const item of result.todoTasks){
   if (result.doneTasks.length > 0) {
     doc.text("Done", startX, startY); 
     startY += 5
     const table = doc.autoTable(header, result.doneTasks, {
       columnStyles: {
         title: {
-            cellWidth: 60,
+            cellWidth: 120,
               },
               priority: {
-                cellWidth: 60,
+                cellWidth: 35,
                     },
-              date: {
-                 cellWidth: 60,
-                    }
             },
       startY,
-      willDrawCell (HookData) {
+      didParseCell (HookData) {
         if (HookData.cell.section === 'body') {
           if (HookData.column.dataKey === 'date') {
             HookData.cell.text = today
           }
         }
+        if (HookData.cell.section === 'body') {
+          if (HookData.column.dataKey === 'priority') {
+        
+        String.prototype.capitalize = function() {
+          return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+      } 
+            HookData.cell.text = [item.priority.capitalize()] 
+      }}
       },
      didDrawPage (HookData) {
-       
-        return HookData.table
-        
+       return HookData.table
       },  
-    }); startY = table.lastAutoTable.finalY + 16}
+    }); startY = table.lastAutoTable.finalY + 16}}
 
  let countTodo= result.todoTasks.length
  let countDone= result.doneTasks.length
@@ -110,11 +108,7 @@ columnStyles: {
   head: [['Total number of Todos', 'Total number of Dones']],
   body: [[countTodo + " ex", countDone + " ex"]],
   startY,
-  
 });
-
-
-
   res.setHeader('Content-Disposition', 'filename="' + encodeURIComponent(`TODO.pdf`) + '"')
   res.setHeader('Content-Type', 'application/pdf')
   res.end(doc.output(), 'binary')
