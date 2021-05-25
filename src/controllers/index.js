@@ -5,4 +5,5 @@ module.exports = {
   getTasksByAuthor: require(`./getTasksByAuthor.controller`),
   deleteTask: require('./deleteTask.controller'),
   downloadFile: require('./downloadFile.controller'),
+  authorsList: require('./authorsList.controller'),
 }
