@@ -1,4 +1,4 @@
-const { getTasks, moveTask, createTask, deleteTask, downloadFile, getTasksByAuthor } = require('../../src/controllers');
+const { getTasks, moveTask, createTask, deleteTask, downloadFile, getTasksByAuthor, authorsList } = require('../../src/controllers');
 
 const getSpy = jest.fn();
 const postSpy = jest.fn();
@@ -28,6 +28,9 @@ describe('router', () => {
   test('should use moveTask controller when "/moveTask/:id/:toTask" is triggered', () => {
     expect(getSpy).toHaveBeenNthCalledWith(3, '/moveTask/:id/:toTask', moveTask);
   });
+  test('should use moveTask controller when "/moveTask/:id/:toTask" is triggered', () => {
+    expect(getSpy).toHaveBeenNthCalledWith(4, '/authorsList', authorsList);
+  });
   test('should use createTask controller when "/createTask" is triggered', () => {
     expect(postSpy).toHaveBeenNthCalledWith(1, '/createTask', createTask);
   });
@@ -38,7 +41,7 @@ describe('router', () => {
     expect(deleteSpy).toHaveBeenNthCalledWith(1, '/deleteTask', deleteTask);
   });
   test('should call GET method 3 times', () => {
-    expect(getSpy).toHaveBeenCalledTimes(3);
+    expect(getSpy).toHaveBeenCalledTimes(4);
   });
   test('should call POST method 2 times', () => {
     expect(postSpy).toHaveBeenCalledTimes(2);
