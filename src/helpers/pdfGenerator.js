@@ -46,7 +46,7 @@ columnStyles: {
       didParseCell (HookData) {
         if (HookData.cell.section === 'body') {
           if (HookData.column.dataKey === 'date') {
-            HookData.cell.text =today 
+            HookData.cell.text = new Date(HookData.cell.raw).toISOString().slice(0, 10); 
           }
         } 
           if (HookData.column.dataKey === 'priority') {
@@ -76,7 +76,7 @@ columnStyles: {
       didParseCell (HookData) {
         if (HookData.cell.section === 'body') {
           if (HookData.column.dataKey === 'date') {
-            HookData.cell.text = today
+            HookData.cell.text = new Date(HookData.cell.raw).toISOString().slice(0, 10);
           }
         }
       if (HookData.column.dataKey === 'priority') {
