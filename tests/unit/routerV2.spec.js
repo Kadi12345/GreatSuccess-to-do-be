@@ -28,7 +28,7 @@ describe('router', () => {
   test('should use moveTask controller when "/moveTask/:id/:toTask" is triggered', () => {
     expect(getSpy).toHaveBeenNthCalledWith(3, '/moveTask/:id/:toTask', moveTask);
   });
-  test('should use moveTask controller when "/moveTask/:id/:toTask" is triggered', () => {
+  test('should use authorsList controller when "/authorsList" is triggered', () => {
     expect(getSpy).toHaveBeenNthCalledWith(4, '/authorsList', authorsList);
   });
   test('should use createTask controller when "/createTask" is triggered', () => {
@@ -40,7 +40,7 @@ describe('router', () => {
   test('should use deleteTask controller when "/deleteTask" is triggered', () => {
     expect(deleteSpy).toHaveBeenNthCalledWith(1, '/deleteTask', deleteTask);
   });
-  test('should call GET method 3 times', () => {
+  test('should call GET method 4 times', () => {
     expect(getSpy).toHaveBeenCalledTimes(4);
   });
   test('should call POST method 2 times', () => {
